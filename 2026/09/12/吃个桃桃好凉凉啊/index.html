@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head> 
+  <meta charset="utf-8" /> 
+  <title>吃个桃桃 | VINCENT的博客</title> 
+  <link rel="icon" href="/images/fav.png" /> 
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" /> 
+  <link rel="canonical" href="http://example.com/2026/09/12/%E5%90%83%E4%B8%AA%E6%A1%83%E6%A1%83%E5%A5%BD%E5%87%89%E5%87%89%E5%95%8A/" /> 
+  <link rel="stylesheet" href="/css/style.css" /> 
+  <link rel="stylesheet" href="/css/mdui.css" importance="high"/> 
+  <link rel="stylesheet" href="/css/article.css" /> 
+  
+  <script src="/js/mdui.min.js" async></script>
+  <style>
+   @import url("/css/iconfont.css");
+  </style>
+ <meta name="generator" content="Hexo 8.1.2"></head> 
+ <body class="page-post"> 
+   <script>
+    let images = "https://api.ee123.net/img/bingimg/dayimg.jpg"
+    images = images.split(',')
+    let currentIndex = 0;
+
+    function changeBackground() {
+        //document.getElementById("bg").style.opacity = 1; // 渐隐
+        setTimeout(() => {
+            document.getElementById("bg").style.backgroundImage = `url(${images[currentIndex]})`;
+            document.getElementById("bg").style.opacity = 1; // 渐显
+            currentIndex = (currentIndex + 1) % images.length;
+        }, 1000); // 与transition时间一致
+    }
+
+    changeBackground()
+    setInterval(changeBackground, 15000); // 每15秒切换一次背景
+</script>
+  <!-- 
+   注意：这里不能加 mdui-drawer-body-left。
+     MDUI 中该 class 的含义是"抽屉已打开，给内容让出 240px"，并且在 min-width:1024px 时
+     会给元素加 padding-left: 240px。它本应由 MDUI 在抽屉真正打开时加到 <body> 上
+     （mdui.min.js: L("body").addClass("mdui-drawer-body-" + position)），
+     静态写在这里会让宽屏下的内容永久右移 240px，导致首页整体不居中。
+  --> 
+  <div class="mdui-appbar-with-toolbar mdui-theme-layout-auto mdui-loaded"> 
+   <!-- background --> 
+   <div id="bg" class="index_bg"></div> 
+   <!-- main --> 
+   <div>
+    
+    <header class="appbar mdui-appbar mdui-appbar-fixed" importance="high"> 
+    <div class="mdui-toolbar mdui-color-theme card-content"> 
+     <span class="mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white" mdui-drawer="{target: '#main-drawer', swipe: true}"> <i class="mdui-icon material-icons" mdui-tooltip="{content: '菜单'}">menu</i> </span> 
+     <nav class="top-nav"> 
+       
+      <a href="/" class="top-nav-link">首页</a> 
+       
+      <a href="/archives" class="top-nav-link">归档</a> 
+       
+      <a href="/tags" class="top-nav-link">标签</a> 
+       
+     </nav> 
+     <div class="mdui-toolbar-spacer">
+       
+      <chizaobook style="line-height: 1em; color:#F5F5F5;;"> 
+       <script>
+        let app = document.createElement('script');
+            app.src = 'https://cdn.jsdelivr.net/gh/ChizaoProject/chizaobook@master/app.js';
+            app.async = true;
+            app.onload = function () {
+              chizaobook = new Chizaobook({
+                container: "chizaobook", // string
+                packageSource: "https://cdn.jsdelivr.net/gh/ChizaoProject/Packages@master/package_source.json", // string
+                packageType: null // int
+          })
+          chizaobook.selector();
+          };
+        document.head.appendChild(app);
+       </script> 
+       <!--<div class="mdui-chip" style="margin: auto; position: fixed; transform: translate(0, -50%);">
+             <span id="time" class="mdui-chip-title" style="transform: translate(0, -50%);"></span>
+             <script>
+               var datetime = new Date();
+               console.log(datetime);
+             </script>
+           </div>
+           --> 
+      </chizaobook>
+      
+     </div> 
+      
+    </div> 
+   </header>  
+
+    <div class="mdui-drawer mdui-drawer-close sidebar" id="main-drawer"> 
+     <div class="mdui-list" mdui-collapse="{accordion: true}" style="margin-bottom: 75px;"> 
+       
+      <a href="/" class="mdui-list-item mdui-ripple"> 
+       <i class="mdui-list-item-icon mdui-icon material-icons">home</i> 
+       <div class="mdui-list-item-content">首页</div> 
+      </a> 
+       
+      <a href="/archives" class="mdui-list-item mdui-ripple"> 
+       <i class="mdui-list-item-icon mdui-icon material-icons">archive</i> 
+       <div class="mdui-list-item-content">归档</div> 
+      </a> 
+       
+      <a href="/tags" class="mdui-list-item mdui-ripple"> 
+       <i class="mdui-list-item-icon mdui-icon material-icons">local_offer</i> 
+       <div class="mdui-list-item-content">标签</div> 
+      </a> 
+       
+       
+      <div class="
+                mdui-collapse-item
+                "> 
+       <div class="mdui-collapse-item-header mdui-list-item mdui-ripple"> 
+        <i class="
+                    mdui-list-item-icon
+                    mdui-icon
+                    material-icons
+                    mdui-text-color-blue">near_me</i>
+        <div class="mdui-list-item-content">
+         HOME
+        </div> 
+        <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i> 
+       </div>
+        
+         <div class="mdui-collapse-item-body mdui-list"> 
+          <a href="https://example.com/" target="_blank" mdui-tooltip="{content: 'example'}" class="
+                        mdui-list-item
+                        mdui-ripple
+                        ">README</a> 
+         </div>
+         
+      </div> 
+      
+     </div> 
+    </div> 
+   </div> 
+
+   <!-- page content -->
+   <main class="main-wrap"> 
+    
+<article class="card article"> 
+ <div class="card-content"> 
+  <header class="article-header"> 
+    
+   <h1 class="article-title">吃个桃桃</h1> 
+    
+   <div class="article-meta"> 
+     
+    <span class="meta-item"><i class="mdui-icon material-icons">schedule</i><time datetime="2026-09-12T10:17:17.000Z">2026-09-12 18:17</time></span> 
+     
+     
+     
+    <span class="meta-item"><i class="mdui-icon material-icons">local_offer</i><a href="/tags/test/">test</a></span> 
+     
+   </div> 
+  </header> 
+
+   
+  <details class="toc-details" open> 
+   <summary class="toc-summary">目录</summary> 
+   <div class="toc-wrap"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%83%E4%B8%AA%E6%A1%83%E6%A1%83-%E5%A5%BD%E5%87%89%E5%87%89%E5%95%8A"><span class="toc-text">吃个桃桃 好凉凉啊</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95"><span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%A6%E5%91%90%E5%91%90%E5%91%90"><span class="toc-text">哦呐呐呐</span></a></li></ol></li></ol></div> 
+  </details> 
+   
+
+  <div class="article-content"><h1 id="吃个桃桃-好凉凉啊"><a href="#吃个桃桃-好凉凉啊" class="headerlink" title="吃个桃桃 好凉凉啊"></a>吃个桃桃 好凉凉啊</h1><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p>-<a href="#%E5%93%A6%E5%91%90%E5%91%90%E5%91%90">哦呐呐呐</a>  </p>
+<p>我凉你大爷 男儿凉 则国凉 任何一个国家都不需要这种畸形产物<br>除了日本<br>创建脚注格式类似这样  </p>
+<p><code>cin.get()</code></p>
+<ol>
+<li><p>第一项：</p>
+<ul>
+<li>第一项嵌套的第一个元素</li>
+<li>第一项嵌套的第二个元素</li>
+</ul>
+</li>
+<li><p>第二项：</p>
+<ul>
+<li>第二项嵌套的第一个元素</li>
+<li>第二项嵌套的第二个元素</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>哦 对了  </p>
+</blockquote>
+<p><code>使用 `反引号` 包围代码</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calculate_area</span>(<span class="params">radius</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;计算圆的面积&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">import</span> math</span><br><span class="line">    <span class="keyword">return</span> math.pi * radius ** <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用函数</span></span><br><span class="line">area = calculate_area(<span class="number">5</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;圆的面积是: <span class="subst">&#123;area:<span class="number">.2</span>f&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><figcaption><span>showLineNumbers</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"><span class="keyword">const</span> doubled = numbers.<span class="title function_">map</span>(<span class="function"><span class="params">x</span> =&gt;</span> x * <span class="number">2</span>);</span><br><span class="line"><span class="keyword">const</span> sum = doubled.<span class="title function_">reduce</span>(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a + b, <span class="number">0</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`总和: <span class="subst">$&#123;sum&#125;</span>`</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这是一个链接 <a target="_blank" rel="noopener" href="https://www.runoob.com/">菜鸟教程</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/">https://www.runoob.com</a>  </p>
+<h2 id="哦呐呐呐"><a href="#哦呐呐呐" class="headerlink" title="哦呐呐呐"></a>哦呐呐呐</h2><p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/java/api/com.microsoft.azure.cognitiveservices.search.imagesearch.bingimages?view=azure-java-archive"><img src="https://uapis.cn/api/v1/image/bing-daily" alt="RUNOOB 图标"></a>  </p>
+<p><img src="E:\SubLian\blog\source_posts\images\pic0.png" alt="图片">  </p>
+<p>$$<br>    \begin{align}<br>    f(x) &amp;&#x3D; ax^2 + bx + c \<br>    f’(x)  &amp;&#x3D; 2ax + b \<br>    f’’(x)  &amp;&#x3D; 2a<br>    \end{align}<br>    $$</p>
+<p>$$E &#x3D; mc^2$$</p>
+<p>$$\int_{-\infty}^{\infty} e^{-x^2} dx &#x3D; \sqrt{\pi}$$</p>
+</div> 
+
+   
+  <div class="tag-list"> 
+   <a class="tag-chip" href="/tags/test/"># test</a> 
+  </div> 
+   
+ </div> 
+</article> 
+ 
+
+<nav class="post-nav"> 
+  
+ <a class="post-nav-item prev" href="/2026/09/12/Hello-World-0/"> 
+  <span class="post-nav-label"><i class="mdui-icon material-icons">navigate_before</i>上一篇</span> 
+  <span class="post-nav-title">Hello,World</span> 
+ </a> 
+  
+  
+ <a class="post-nav-item next" href="/2026/09/12/hello-world/"> 
+  <span class="post-nav-label">下一篇<i class="mdui-icon material-icons">navigate_next</i></span> 
+  <span class="post-nav-title">Hello World</span> 
+ </a> 
+  
+</nav> 
+
+ 
+<script> 
+window.MathJax = { 
+  tex: { 
+    inlineMath: [['$', '$'], ['\\(', '\\)']], 
+    displayMath: [['$$', '$$'], ['\\[', '\\]']], 
+    processEscapes: true 
+  }, 
+  options: { 
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] 
+  } 
+}; 
+</script> 
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> 
+ 
+ 
+   </main> 
+
+   <!-- footer --> 
+   <div id="footer" class="footer"> 
+    <p class="remark">
+      <br>
+      
+      <br>Powered By <a href="https://hexo.io/" target="_blank"> Hexo </a> And <a href="https://mdui.org" target="_blank">MDUI</a>.<br /> Theme ❤ <a href="https://kuri.ink/" target="">kuri</a>. 
+
+    </p> 
+   </div>  
+    
+
+   
+
+  </div>
+ </body>
+</html>

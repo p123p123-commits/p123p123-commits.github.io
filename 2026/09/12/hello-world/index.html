@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head> 
+  <meta charset="utf-8" /> 
+  <title>Hello World | VINCENT的博客</title> 
+  <link rel="icon" href="/images/fav.png" /> 
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" /> 
+  <link rel="canonical" href="http://example.com/2026/09/12/hello-world/" /> 
+  <link rel="stylesheet" href="/css/style.css" /> 
+  <link rel="stylesheet" href="/css/mdui.css" importance="high"/> 
+  <link rel="stylesheet" href="/css/article.css" /> 
+  
+  <script src="/js/mdui.min.js" async></script>
+  <style>
+   @import url("/css/iconfont.css");
+  </style>
+ <meta name="generator" content="Hexo 8.1.2"></head> 
+ <body class="page-post"> 
+   <script>
+    let images = "https://api.ee123.net/img/bingimg/dayimg.jpg"
+    images = images.split(',')
+    let currentIndex = 0;
+
+    function changeBackground() {
+        //document.getElementById("bg").style.opacity = 1; // 渐隐
+        setTimeout(() => {
+            document.getElementById("bg").style.backgroundImage = `url(${images[currentIndex]})`;
+            document.getElementById("bg").style.opacity = 1; // 渐显
+            currentIndex = (currentIndex + 1) % images.length;
+        }, 1000); // 与transition时间一致
+    }
+
+    changeBackground()
+    setInterval(changeBackground, 15000); // 每15秒切换一次背景
+</script>
+  <!-- 
+   注意：这里不能加 mdui-drawer-body-left。
+     MDUI 中该 class 的含义是"抽屉已打开，给内容让出 240px"，并且在 min-width:1024px 时
+     会给元素加 padding-left: 240px。它本应由 MDUI 在抽屉真正打开时加到 <body> 上
+     （mdui.min.js: L("body").addClass("mdui-drawer-body-" + position)），
+     静态写在这里会让宽屏下的内容永久右移 240px，导致首页整体不居中。
+  --> 
+  <div class="mdui-appbar-with-toolbar mdui-theme-layout-auto mdui-loaded"> 
+   <!-- background --> 
+   <div id="bg" class="index_bg"></div> 
+   <!-- main --> 
+   <div>
+    
+    <header class="appbar mdui-appbar mdui-appbar-fixed" importance="high"> 
+    <div class="mdui-toolbar mdui-color-theme card-content"> 
+     <span class="mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white" mdui-drawer="{target: '#main-drawer', swipe: true}"> <i class="mdui-icon material-icons" mdui-tooltip="{content: '菜单'}">menu</i> </span> 
+     <nav class="top-nav"> 
+       
+      <a href="/" class="top-nav-link">首页</a> 
+       
+      <a href="/archives" class="top-nav-link">归档</a> 
+       
+      <a href="/tags" class="top-nav-link">标签</a> 
+       
+     </nav> 
+     <div class="mdui-toolbar-spacer">
+       
+      <chizaobook style="line-height: 1em; color:#F5F5F5;;"> 
+       <script>
+        let app = document.createElement('script');
+            app.src = 'https://cdn.jsdelivr.net/gh/ChizaoProject/chizaobook@master/app.js';
+            app.async = true;
+            app.onload = function () {
+              chizaobook = new Chizaobook({
+                container: "chizaobook", // string
+                packageSource: "https://cdn.jsdelivr.net/gh/ChizaoProject/Packages@master/package_source.json", // string
+                packageType: null // int
+          })
+          chizaobook.selector();
+          };
+        document.head.appendChild(app);
+       </script> 
+       <!--<div class="mdui-chip" style="margin: auto; position: fixed; transform: translate(0, -50%);">
+             <span id="time" class="mdui-chip-title" style="transform: translate(0, -50%);"></span>
+             <script>
+               var datetime = new Date();
+               console.log(datetime);
+             </script>
+           </div>
+           --> 
+      </chizaobook>
+      
+     </div> 
+      
+    </div> 
+   </header>  
+
+    <div class="mdui-drawer mdui-drawer-close sidebar" id="main-drawer"> 
+     <div class="mdui-list" mdui-collapse="{accordion: true}" style="margin-bottom: 75px;"> 
+       
+      <a href="/" class="mdui-list-item mdui-ripple"> 
+       <i class="mdui-list-item-icon mdui-icon material-icons">home</i> 
+       <div class="mdui-list-item-content">首页</div> 
+      </a> 
+       
+      <a href="/archives" class="mdui-list-item mdui-ripple"> 
+       <i class="mdui-list-item-icon mdui-icon material-icons">archive</i> 
+       <div class="mdui-list-item-content">归档</div> 
+      </a> 
+       
+      <a href="/tags" class="mdui-list-item mdui-ripple"> 
+       <i class="mdui-list-item-icon mdui-icon material-icons">local_offer</i> 
+       <div class="mdui-list-item-content">标签</div> 
+      </a> 
+       
+       
+      <div class="
+                mdui-collapse-item
+                "> 
+       <div class="mdui-collapse-item-header mdui-list-item mdui-ripple"> 
+        <i class="
+                    mdui-list-item-icon
+                    mdui-icon
+                    material-icons
+                    mdui-text-color-blue">near_me</i>
+        <div class="mdui-list-item-content">
+         HOME
+        </div> 
+        <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i> 
+       </div>
+        
+         <div class="mdui-collapse-item-body mdui-list"> 
+          <a href="https://example.com/" target="_blank" mdui-tooltip="{content: 'example'}" class="
+                        mdui-list-item
+                        mdui-ripple
+                        ">README</a> 
+         </div>
+         
+      </div> 
+      
+     </div> 
+    </div> 
+   </div> 
+
+   <!-- page content -->
+   <main class="main-wrap"> 
+    
+<article class="card article"> 
+ <div class="card-content"> 
+  <header class="article-header"> 
+    
+   <h1 class="article-title">Hello World</h1> 
+    
+   <div class="article-meta"> 
+     
+    <span class="meta-item"><i class="mdui-icon material-icons">schedule</i><time datetime="2026-09-12T10:10:33.003Z">2026-09-12 18:10</time></span> 
+     
+     
+     
+   </div> 
+  </header> 
+
+   
+  <details class="toc-details" open> 
+   <summary class="toc-summary">目录</summary> 
+   <div class="toc-wrap"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol></div> 
+  </details> 
+   
+
+  <div class="article-content"><p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+</div> 
+
+   
+ </div> 
+</article> 
+ 
+
+<nav class="post-nav"> 
+  
+ <a class="post-nav-item prev" href="/2026/09/12/%E5%90%83%E4%B8%AA%E6%A1%83%E6%A1%83%E5%A5%BD%E5%87%89%E5%87%89%E5%95%8A/"> 
+  <span class="post-nav-label"><i class="mdui-icon material-icons">navigate_before</i>上一篇</span> 
+  <span class="post-nav-title">吃个桃桃</span> 
+ </a> 
+  
+  
+</nav> 
+
+ 
+<script> 
+window.MathJax = { 
+  tex: { 
+    inlineMath: [['$', '$'], ['\\(', '\\)']], 
+    displayMath: [['$$', '$$'], ['\\[', '\\]']], 
+    processEscapes: true 
+  }, 
+  options: { 
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] 
+  } 
+}; 
+</script> 
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> 
+ 
+ 
+   </main> 
+
+   <!-- footer --> 
+   <div id="footer" class="footer"> 
+    <p class="remark">
+      <br>
+      
+      <br>Powered By <a href="https://hexo.io/" target="_blank"> Hexo </a> And <a href="https://mdui.org" target="_blank">MDUI</a>.<br /> Theme ❤ <a href="https://kuri.ink/" target="">kuri</a>. 
+
+    </p> 
+   </div>  
+    
+
+   
+
+  </div>
+ </body>
+</html>

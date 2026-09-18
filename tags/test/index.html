@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head> 
+  <meta charset="utf-8" /> 
+  <title>VINCENT的博客</title> 
+  <link rel="icon" href="/images/fav.png" /> 
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" /> 
+  <link rel="canonical" href="http://example.com/tags/test/index.html" /> 
+  <link rel="stylesheet" href="/css/style.css" /> 
+  <link rel="stylesheet" href="/css/mdui.css" importance="high"/> 
+  <link rel="stylesheet" href="/css/article.css" /> 
+  
+  <script src="/js/mdui.min.js" async></script>
+  <style>
+   @import url("/css/iconfont.css");
+  </style>
+ <meta name="generator" content="Hexo 8.1.2"></head> 
+ <body class="page-other"> 
+   <script>
+    let images = "https://api.ee123.net/img/bingimg/dayimg.jpg"
+    images = images.split(',')
+    let currentIndex = 0;
+
+    function changeBackground() {
+        //document.getElementById("bg").style.opacity = 1; // 渐隐
+        setTimeout(() => {
+            document.getElementById("bg").style.backgroundImage = `url(${images[currentIndex]})`;
+            document.getElementById("bg").style.opacity = 1; // 渐显
+            currentIndex = (currentIndex + 1) % images.length;
+        }, 1000); // 与transition时间一致
+    }
+
+    changeBackground()
+    setInterval(changeBackground, 15000); // 每15秒切换一次背景
+</script>
+  <!-- 
+   注意：这里不能加 mdui-drawer-body-left。
+     MDUI 中该 class 的含义是"抽屉已打开，给内容让出 240px"，并且在 min-width:1024px 时
+     会给元素加 padding-left: 240px。它本应由 MDUI 在抽屉真正打开时加到 <body> 上
+     （mdui.min.js: L("body").addClass("mdui-drawer-body-" + position)），
+     静态写在这里会让宽屏下的内容永久右移 240px，导致首页整体不居中。
+  --> 
+  <div class="mdui-appbar-with-toolbar mdui-theme-layout-auto mdui-loaded"> 
+   <!-- background --> 
+   <div id="bg" class="index_bg"></div> 
+   <!-- main --> 
+   <div>
+    
+    <header class="appbar mdui-appbar mdui-appbar-fixed" importance="high"> 
+    <div class="mdui-toolbar mdui-color-theme card-content"> 
+     <span class="mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white" mdui-drawer="{target: '#main-drawer', swipe: true}"> <i class="mdui-icon material-icons" mdui-tooltip="{content: '菜单'}">menu</i> </span> 
+     <nav class="top-nav"> 
+       
+      <a href="/" class="top-nav-link">首页</a> 
+       
+      <a href="/archives" class="top-nav-link">归档</a> 
+       
+      <a href="/tags" class="top-nav-link active">标签</a> 
+       
+     </nav> 
+     <div class="mdui-toolbar-spacer">
+       
+      <chizaobook style="line-height: 1em; color:#F5F5F5;;"> 
+       <script>
+        let app = document.createElement('script');
+            app.src = 'https://cdn.jsdelivr.net/gh/ChizaoProject/chizaobook@master/app.js';
+            app.async = true;
+            app.onload = function () {
+              chizaobook = new Chizaobook({
+                container: "chizaobook", // string
+                packageSource: "https://cdn.jsdelivr.net/gh/ChizaoProject/Packages@master/package_source.json", // string
+                packageType: null // int
+          })
+          chizaobook.selector();
+          };
+        document.head.appendChild(app);
+       </script> 
+       <!--<div class="mdui-chip" style="margin: auto; position: fixed; transform: translate(0, -50%);">
+             <span id="time" class="mdui-chip-title" style="transform: translate(0, -50%);"></span>
+             <script>
+               var datetime = new Date();
+               console.log(datetime);
+             </script>
+           </div>
+           --> 
+      </chizaobook>
+      
+     </div> 
+      
+    </div> 
+   </header>  
+
+    <div class="mdui-drawer mdui-drawer-close sidebar" id="main-drawer"> 
+     <div class="mdui-list" mdui-collapse="{accordion: true}" style="margin-bottom: 75px;"> 
+       
+      <a href="/" class="mdui-list-item mdui-ripple"> 
+       <i class="mdui-list-item-icon mdui-icon material-icons">home</i> 
+       <div class="mdui-list-item-content">首页</div> 
+      </a> 
+       
+      <a href="/archives" class="mdui-list-item mdui-ripple"> 
+       <i class="mdui-list-item-icon mdui-icon material-icons">archive</i> 
+       <div class="mdui-list-item-content">归档</div> 
+      </a> 
+       
+      <a href="/tags" class="mdui-list-item mdui-ripple"> 
+       <i class="mdui-list-item-icon mdui-icon material-icons">local_offer</i> 
+       <div class="mdui-list-item-content">标签</div> 
+      </a> 
+       
+       
+      <div class="
+                mdui-collapse-item
+                "> 
+       <div class="mdui-collapse-item-header mdui-list-item mdui-ripple"> 
+        <i class="
+                    mdui-list-item-icon
+                    mdui-icon
+                    material-icons
+                    mdui-text-color-blue">near_me</i>
+        <div class="mdui-list-item-content">
+         HOME
+        </div> 
+        <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i> 
+       </div>
+        
+         <div class="mdui-collapse-item-body mdui-list"> 
+          <a href="https://example.com/" target="_blank" mdui-tooltip="{content: 'example'}" class="
+                        mdui-list-item
+                        mdui-ripple
+                        ">README</a> 
+         </div>
+         
+      </div> 
+      
+     </div> 
+    </div> 
+   </div> 
+
+   <!-- page content -->
+   <main class="main-wrap"> 
+    
+<div class="card list-card"> 
+ <div class="card-content"> 
+  <h2 class="section-title">标签：test<small class="section-count">共 1 篇</small></h2> 
+   
+  <div class="post-list"> 
+    
+   <a class="post-item" href="/2026/09/12/%E5%90%83%E4%B8%AA%E6%A1%83%E6%A1%83%E5%A5%BD%E5%87%89%E5%87%89%E5%95%8A/"> 
+    <span class="post-item-title">吃个桃桃</span> 
+    <span class="post-item-info"> 
+     <span class="post-item-date">2026-09-12</span> 
+      
+    </span> 
+   </a> 
+    
+  </div> 
+   
+   
+ 
+ </div> 
+</div> 
+ 
+   </main> 
+
+   <!-- footer --> 
+   <div id="footer" class="footer"> 
+    <p class="remark">
+      <br>
+      
+      <br>Powered By <a href="https://hexo.io/" target="_blank"> Hexo </a> And <a href="https://mdui.org" target="_blank">MDUI</a>.<br /> Theme ❤ <a href="https://kuri.ink/" target="">kuri</a>. 
+
+    </p> 
+   </div>  
+    
+
+   
+
+  </div>
+ </body>
+</html>

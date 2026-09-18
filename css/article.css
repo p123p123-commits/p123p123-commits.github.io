@@ -1,0 +1,958 @@
+/* ==========================================================================
+   hexo-theme-kuri - article / list styles
+   为 kuri 主题补充博客所需的文章页、列表页与 Markdown 排版样式。
+   该文件不改动 style.css 的原有规则，仅做叠加与局部覆盖。
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   0. 全局修正
+   -------------------------------------------------------------------------- */
+
+/* 允许正文区域选中与复制文字（style.css 全局禁用了 user-select） */
+.article-content,
+.article-title,
+.post-item-title,
+.toc-wrap {
+	-webkit-user-select: text;
+	-moz-user-select: text;
+	-ms-user-select: text;
+	user-select: text;
+}
+
+/* 页脚改为固定定位，避免长文章时悬浮并遮挡正文 */
+.footer {
+	position: fixed;
+	z-index: 5;
+	pointer-events: none;
+}
+
+.footer a {
+	pointer-events: auto;
+}
+
+/* 内容卡片统一为深色毛玻璃，保证任意背景图下都可读 */
+.main-wrap .card {
+	background: rgba(16, 18, 24, 0.45) !important;
+	border: 1px solid rgba(255, 255, 255, 0.16);
+	color: #ECEEF3;
+}
+
+/* --------------------------------------------------------------------------
+   1. 页面主体容器
+   -------------------------------------------------------------------------- */
+
+/* MDUI 全局使用 content-box，这里统一为 border-box，
+   避免 `width: 100%` 叠加内边距与边框后产生横向溢出 */
+.main-wrap,
+.main-wrap .card,
+.profile,
+.profile .card,
+.post-nav-item,
+.toc-details {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.main-wrap {
+	position: relative;
+	z-index: 2;
+	width: 100%;
+	max-width: 920px;
+	margin: 0 auto;
+	padding: 12px 18px 90px;
+	box-sizing: border-box;
+}
+
+@media only screen and (max-width: 600px) {
+	.main-wrap {
+		padding: 8px 10px 90px;
+	}
+}
+
+/* 文章 / 列表卡片占满内容区宽度 */
+.main-wrap > .card {
+	width: 100%;
+	height: auto;
+}
+
+/* --------------------------------------------------------------------------
+   2. 个人名片（首页）
+   -------------------------------------------------------------------------- */
+
+:root {
+	/* 头像框从卡片上边缘向上悬出的高度 = 50px 负外边距 - 10px 卡片内边距 */
+	--kuri-logo-overhang: 40px;
+	/* 悬出的头像框与固定导航栏之间要保留的最小间距 */
+	--kuri-logo-gap: 16px;
+}
+
+/*
+ * 让悬出卡片的头像框避开顶部固定的毛玻璃导航栏。
+ * 导航栏自身的占位由 MDUI 的 .mdui-appbar-with-toolbar 提供
+ * （56px / 64px / 横屏 48px，随断点自动变化），所以只需补偿头像框悬出的 40px 常量；
+ * 减去的 8px 是 .main-wrap 在窄屏下的 padding-top（宽屏为 12px），
+ * 取较小值即可保证任何断点下都不重叠。
+ */
+.profile {
+	width: 100%;
+	margin: 0 auto 18px;
+	margin-top: calc(var(--kuri-logo-overhang) + var(--kuri-logo-gap) - 8px);
+}
+
+/*
+ * style.css 的 .card 还保留着单页主页时代的固定百分比宽度与 height: 50%
+ * （按断点取 20% / 30% / 40% / 50% / 60% / 75%），会把名片挤到很窄：
+ *   视口 2000px 时名片只有 177px 宽，而 .nickname（2.5em）需要 202px，
+ *   文字就会溢出毛玻璃背景；
+ *   并且断点切换时 .card 的 transition: 0.3s 会把宽度变化播成一段动画，
+ *   动画期间文字会甩出毛玻璃之外。
+ * 这里统一为与下方文章列表卡片一致的满宽，宽度不再随断点跳变；
+ * transition 也只保留配色相关属性，彻底去掉宽度动画。
+ */
+.profile .card {
+	width: 100%;
+	height: auto;
+	transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.profile .nickname,
+.profile .motto {
+	display: block;
+	word-break: break-word;
+	overflow-wrap: anywhere;
+}
+
+/*
+ * style.css 给 .nickname 与 .motto 都设了 `margin: 20px auto`，
+ * 而且模板里原本在两者之间还有一个 <br>。两者相加会让名字和简介之间空出 60px 左右：
+ *   20px(名字下边距) + 18px(<br> 空行) + 20px(简介上边距)
+ * 这里收紧为一个小间距（相邻块级元素的外边距会合并，取较大值即为实际间距），
+ * 同时保留名字上方的间距不变。
+ */
+.profile .nickname {
+	margin-bottom: 8px;
+}
+
+.profile .motto {
+	margin-top: 0;
+}
+
+/* --------------------------------------------------------------------------
+   3. 顶栏导航
+   -------------------------------------------------------------------------- */
+
+.top-nav {
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.top-nav-link {
+	display: inline-block;
+	padding: 0 10px;
+	height: 64px;
+	line-height: 64px;
+	font-size: 14px;
+	color: rgba(245, 245, 245, 0.8);
+	text-decoration: none;
+	transition: 0.3s;
+}
+
+.top-nav-link:hover,
+.top-nav-link.active {
+	color: #ffffff;
+	background: rgba(255, 255, 255, 0.12);
+}
+
+@media only screen and (max-width: 767px) {
+	.top-nav {
+		display: none;
+	}
+}
+
+/* --------------------------------------------------------------------------
+   4. 首页 / 归档列表
+   -------------------------------------------------------------------------- */
+
+.list-card .card-content {
+	text-align: left;
+	line-height: 1.6;
+	padding: 4px 6px;
+}
+
+.section-title {
+	margin: 0 0 6px;
+	padding-bottom: 12px;
+	font-size: 1.05em;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	color: #F5F5F5;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.section-count {
+	margin-left: 10px;
+	font-size: 0.72em;
+	font-weight: 400;
+	color: rgba(245, 245, 245, 0.5);
+}
+
+.post-list {
+	display: block;
+}
+
+.post-item {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 14px;
+	padding: 13px 4px;
+	text-decoration: none;
+	border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+	transition: 0.3s;
+}
+
+.post-item:last-child {
+	border-bottom: none;
+}
+
+.post-item-title {
+	flex: 1;
+	min-width: 0;
+	font-size: 1em;
+	font-weight: 500;
+	color: #F5F5F5;
+	word-break: break-word;
+	transition: 0.3s;
+}
+
+.post-item:hover .post-item-title {
+	color: #66CCFF;
+	padding-left: 4px;
+}
+
+.post-item-info {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	flex: none;
+	font-size: 0.78em;
+	color: rgba(245, 245, 245, 0.5);
+	white-space: nowrap;
+}
+
+.post-item-cat {
+	padding: 1px 7px;
+	border-radius: 10px;
+	background: rgba(102, 204, 255, 0.14);
+	color: #66CCFF;
+}
+
+.empty-tip {
+	margin: 24px 0;
+	text-align: center;
+	color: rgba(245, 245, 245, 0.5);
+}
+
+/* --------------------------------------------------------------------------
+   5. 分页（hexo paginator 输出）
+   -------------------------------------------------------------------------- */
+
+.pagination {
+	margin-top: 22px;
+	text-align: center;
+}
+
+.pagination a,
+.pagination span {
+	display: inline-block;
+	min-width: 32px;
+	height: 32px;
+	line-height: 32px;
+	margin: 3px;
+	padding: 0 10px;
+	box-sizing: border-box;
+	font-size: 13px;
+	border-radius: 8px;
+	text-decoration: none;
+	color: rgba(245, 245, 245, 0.82);
+	background: rgba(255, 255, 255, 0.07);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	transition: 0.3s;
+}
+
+.pagination a:hover {
+	background: rgba(102, 204, 255, 0.85);
+	border-color: transparent;
+	color: #0b0d12;
+}
+
+.pagination .current {
+	background: #66CCFF;
+	border-color: transparent;
+	color: #0b0d12;
+	font-weight: 700;
+}
+
+.pagination .space {
+	background: transparent;
+	border-color: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   6. 文章页
+   -------------------------------------------------------------------------- */
+
+.article {
+	margin-bottom: 18px;
+}
+
+.article .card-content {
+	text-align: left;
+	line-height: 1.75;
+	padding: 6px 10px 14px;
+}
+
+.article-header {
+	margin-bottom: 8px;
+}
+
+.article-title {
+	margin: 6px 0 10px;
+	font-size: 1.7em;
+	font-weight: 800;
+	line-height: 1.35;
+	color: #ffffff;
+	word-break: break-word;
+}
+
+.article-meta {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px 16px;
+	padding-bottom: 14px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+	font-size: 0.82em;
+	color: rgba(245, 245, 245, 0.55);
+}
+
+.meta-item {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.meta-item .mdui-icon.material-icons {
+	font-size: 15px;
+	line-height: 1;
+	opacity: 0.75;
+}
+
+.meta-item a {
+	color: rgba(245, 245, 245, 0.72);
+	text-decoration: none;
+}
+
+.meta-item a:hover {
+	color: #66CCFF;
+}
+
+.meta-sep {
+	margin: 0 4px;
+	opacity: 0.45;
+}
+
+/* 目录 */
+.toc-details {
+	margin: 16px 0 4px;
+	padding: 10px 14px;
+	border-radius: 10px;
+	background: rgba(255, 255, 255, 0.05);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	font-size: 0.88em;
+}
+
+.toc-summary {
+	cursor: pointer;
+	font-weight: 600;
+	color: rgba(245, 245, 245, 0.85);
+	outline: none;
+	letter-spacing: 0.06em;
+}
+
+.toc-wrap {
+	margin-top: 8px;
+	padding-left: 2px;
+}
+
+.toc {
+	margin: 0;
+	padding-left: 20px;
+	list-style: none;
+	line-height: 1.9;
+}
+
+.toc-child {
+	padding-left: 16px;
+	list-style: none;
+}
+
+.toc-item {
+	color: rgba(245, 245, 245, 0.62);
+}
+
+.toc-link {
+	color: rgba(245, 245, 245, 0.7);
+	text-decoration: none;
+	transition: 0.3s;
+}
+
+.toc-link:hover {
+	color: #66CCFF;
+}
+
+.toc-number {
+	margin-right: 6px;
+	color: rgba(245, 245, 245, 0.4);
+}
+
+/* --------------------------------------------------------------------------
+   7. Markdown 正文排版
+   -------------------------------------------------------------------------- */
+
+.article-content {
+	font-size: 15.5px;
+	line-height: 1.85;
+	color: #E3E6ED;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+
+.article-content > *:first-child {
+	margin-top: 0;
+}
+
+.article-content > *:last-child {
+	margin-bottom: 0;
+}
+
+.article-content p {
+	margin: 0 0 1.1em;
+}
+
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4,
+.article-content h5,
+.article-content h6 {
+	margin: 1.7em 0 0.7em;
+	font-weight: 700;
+	line-height: 1.4;
+	color: #ffffff;
+	letter-spacing: 0.01em;
+}
+
+.article-content h1 {
+	font-size: 1.5em;
+	padding-bottom: 0.3em;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.article-content h2 {
+	font-size: 1.32em;
+	padding-bottom: 0.28em;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.article-content h3 {
+	font-size: 1.15em;
+	padding-left: 10px;
+	border-left: 3px solid #66CCFF;
+}
+
+.article-content h4 {
+	font-size: 1.05em;
+}
+
+.article-content h5,
+.article-content h6 {
+	font-size: 1em;
+	color: rgba(245, 245, 245, 0.85);
+}
+
+.article-content a {
+	color: #66CCFF;
+	text-decoration: none;
+	border-bottom: 1px dotted rgba(102, 204, 255, 0.5);
+	transition: 0.3s;
+}
+
+.article-content a:hover {
+	color: #ffffff;
+	border-bottom-color: #ffffff;
+}
+
+.article-content strong {
+	color: #ffffff;
+	font-weight: 700;
+}
+
+.article-content em {
+	color: rgba(245, 245, 245, 0.9);
+}
+
+.article-content del {
+	opacity: 0.6;
+}
+
+.article-content ul,
+.article-content ol {
+	margin: 0 0 1.1em;
+	padding-left: 1.6em;
+}
+
+.article-content ul {
+	list-style: disc;
+}
+
+.article-content ol {
+	list-style: decimal;
+}
+
+.article-content li {
+	margin: 0.35em 0;
+}
+
+.article-content li > ul,
+.article-content li > ol {
+	margin: 0.35em 0;
+}
+
+.article-content blockquote {
+	margin: 1.2em 0;
+	padding: 12px 18px;
+	border-left: 3px solid #66CCFF;
+	border-radius: 0 10px 10px 0;
+	background: rgba(102, 204, 255, 0.08);
+	color: rgba(245, 245, 245, 0.82);
+}
+
+.article-content blockquote p {
+	margin: 0.3em 0;
+}
+
+.article-content hr {
+	margin: 1.8em auto;
+	width: 100%;
+	height: 1px;
+	border: none;
+	background: rgba(255, 255, 255, 0.14);
+}
+
+.article-content img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	margin: 1.2em auto;
+	border-radius: 10px;
+	box-shadow: 0 6px 24px rgba(0, 0, 0, 0.28);
+}
+
+/* 行内代码 */
+.article-content code {
+	padding: 2px 6px;
+	margin: 0 2px;
+	border-radius: 5px;
+	font-family: "JetBrains Mono", "Fira Code", Consolas, Menlo, Monaco, monospace;
+	font-size: 0.88em;
+	color: #ffb4a2;
+	background: rgba(255, 255, 255, 0.1);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	word-break: break-word;
+}
+
+/* 表格 */
+.article-content table {
+	display: table;
+	width: 100%;
+	margin: 1.2em 0;
+	border-collapse: collapse;
+	overflow: hidden;
+	border-radius: 10px;
+	font-size: 0.93em;
+}
+
+.article-content table th,
+.article-content table td {
+	padding: 9px 12px;
+	border: 1px solid rgba(255, 255, 255, 0.13);
+	text-align: left;
+}
+
+.article-content table th {
+	background: rgba(255, 255, 255, 0.09);
+	color: #ffffff;
+	font-weight: 600;
+}
+
+.article-content table tr:nth-child(2n) td {
+	background: rgba(255, 255, 255, 0.03);
+}
+
+/* --------------------------------------------------------------------------
+   8. 代码块（hexo-util / highlight.js，classPrefix 为空）
+   -------------------------------------------------------------------------- */
+
+.article-content figure.highlight {
+	margin: 1.3em 0;
+	border-radius: 10px;
+	overflow: hidden;
+	background: #161b22;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	box-shadow: 0 8px 26px rgba(0, 0, 0, 0.3);
+}
+
+.article-content figure.highlight figcaption {
+	padding: 8px 14px;
+	font-size: 12px;
+	color: rgba(255, 255, 255, 0.6);
+	background: rgba(255, 255, 255, 0.05);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.article-content figure.highlight table {
+	display: table;
+	width: 100%;
+	margin: 0;
+	border-collapse: collapse;
+	border-radius: 0;
+	table-layout: auto;
+}
+
+.article-content figure.highlight td {
+	padding: 0;
+	border: none;
+	vertical-align: top;
+	background: transparent;
+}
+
+/* 行号栏：宽度由内容决定，避免被表格压缩 */
+.article-content figure.highlight td.gutter {
+	width: 1px;
+	white-space: nowrap;
+	background: rgba(255, 255, 255, 0.035);
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+.article-content figure.highlight td.gutter pre {
+	margin: 0;
+	padding: 13px 10px;
+	overflow: visible;
+	color: rgba(255, 255, 255, 0.32);
+	text-align: right;
+	background: transparent;
+}
+
+/* 代码栏：占满剩余宽度，超长代码横向滚动 */
+.article-content figure.highlight td.code {
+	width: 100%;
+}
+
+.article-content figure.highlight td.code pre {
+	margin: 0;
+	padding: 13px 14px 13px 6px;
+	border: none;
+	border-radius: 0;
+	background: transparent;
+	overflow-x: auto;
+	white-space: pre;
+	word-break: normal;
+}
+
+.article-content figure.highlight pre,
+.article-content figure.highlight code {
+	font-family: "JetBrains Mono", "Fira Code", Consolas, Menlo, Monaco, monospace;
+	font-size: 13px;
+	line-height: 1.65;
+	color: #c9d1d9;
+	background: transparent;
+	border: none;
+	padding: 0;
+	margin: 0;
+}
+
+.article-content figure.highlight .line {
+	display: inline;
+}
+
+.article-content figure.highlight .marked {
+	color: #ffd866;
+}
+
+/* GitHub Dark 配色 */
+.article-content figure.highlight .comment,
+.article-content figure.highlight .quote {
+	color: #8b949e;
+	font-style: italic;
+}
+
+.article-content figure.highlight .keyword,
+.article-content figure.highlight .selector-tag,
+.article-content figure.highlight .doctag {
+	color: #ff7b72;
+}
+
+.article-content figure.highlight .string,
+.article-content figure.highlight .meta .string,
+.article-content figure.highlight .regexp {
+	color: #a5d6ff;
+}
+
+.article-content figure.highlight .number,
+.article-content figure.highlight .literal,
+.article-content figure.highlight .variable,
+.article-content figure.highlight .template-variable {
+	color: #79c0ff;
+}
+
+.article-content figure.highlight .title,
+.article-content figure.highlight .title.function,
+.article-content figure.highlight .function,
+.article-content figure.highlight .section,
+.article-content figure.highlight .selector-id {
+	color: #d2a8ff;
+}
+
+.article-content figure.highlight .type,
+.article-content figure.highlight .class,
+.article-content figure.highlight .built_in,
+.article-content figure.highlight .builtin-name,
+.article-content figure.highlight .attr,
+.article-content figure.highlight .attribute,
+.article-content figure.highlight .property,
+.article-content figure.highlight .params {
+	color: #ffa657;
+}
+
+.article-content figure.highlight .tag,
+.article-content figure.highlight .name,
+.article-content figure.highlight .selector-class,
+.article-content figure.highlight .selector-attr,
+.article-content figure.highlight .selector-pseudo {
+	color: #7ee787;
+}
+
+.article-content figure.highlight .symbol,
+.article-content figure.highlight .bullet,
+.article-content figure.highlight .link,
+.article-content figure.highlight .meta {
+	color: #79c0ff;
+}
+
+.article-content figure.highlight .operator,
+.article-content figure.highlight .punctuation {
+	color: #c9d1d9;
+}
+
+.article-content figure.highlight .emphasis {
+	font-style: italic;
+}
+
+.article-content figure.highlight .strong {
+	font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   9. 标签与上下篇
+   -------------------------------------------------------------------------- */
+
+.tag-list {
+	margin-top: 26px;
+	padding-top: 16px;
+	border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.tag-chip {
+	display: inline-block;
+	margin: 4px 8px 4px 0;
+	padding: 4px 12px;
+	border-radius: 14px;
+	font-size: 0.82em;
+	text-decoration: none;
+	color: #66CCFF;
+	background: rgba(102, 204, 255, 0.12);
+	border: 1px solid rgba(102, 204, 255, 0.3);
+	transition: 0.3s;
+}
+
+.tag-chip:hover {
+	background: #66CCFF;
+	color: #0b0d12;
+}
+
+.post-nav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin-top: 6px;
+}
+
+.post-nav-item {
+	flex: 1 1 240px;
+	padding: 14px 16px;
+	border-radius: 12px;
+	text-decoration: none;
+	background: rgba(16, 18, 24, 0.45);
+	border: 1px solid rgba(255, 255, 255, 0.14);
+	transition: 0.3s;
+}
+
+.post-nav-item:hover {
+	border-color: rgba(102, 204, 255, 0.6);
+	background: rgba(102, 204, 255, 0.1);
+}
+
+.post-nav-item.next {
+	text-align: right;
+}
+
+.post-nav-label {
+	display: flex;
+	align-items: center;
+	gap: 3px;
+	margin-bottom: 6px;
+	font-size: 0.76em;
+	color: rgba(245, 245, 245, 0.5);
+}
+
+.post-nav-item.next .post-nav-label {
+	justify-content: flex-end;
+}
+
+.post-nav-label .mdui-icon.material-icons {
+	font-size: 15px;
+	line-height: 1;
+}
+
+.post-nav-title {
+	display: block;
+	font-size: 0.93em;
+	font-weight: 500;
+	color: #F5F5F5;
+	word-break: break-word;
+}
+
+.post-nav-item:hover .post-nav-title {
+	color: #66CCFF;
+}
+
+/* --------------------------------------------------------------------------
+   9.5 标签索引页（/tags/）
+   -------------------------------------------------------------------------- */
+
+.tag-search {
+	position: relative;
+	display: flex;
+	align-items: center;
+	margin: 16px 0 16px;
+}
+
+.tag-search > .mdui-icon.material-icons {
+	position: absolute;
+	left: 12px;
+	font-size: 18px;
+	line-height: 1;
+	color: rgba(245, 245, 245, 0.5);
+	pointer-events: none;
+}
+
+.tag-search input {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 10px 14px 10px 38px;
+	font-family: inherit;
+	font-size: 14px;
+	color: #F5F5F5;
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 255, 255, 0.16);
+	border-radius: 10px;
+	outline: none;
+	transition: 0.3s;
+	/* style.css 用 * { user-select: none } 全局禁用了选择，输入框需要显式打开 */
+	-webkit-user-select: text;
+	-moz-user-select: text;
+	-ms-user-select: text;
+	user-select: text;
+}
+
+.tag-search input::placeholder {
+	color: rgba(245, 245, 245, 0.4);
+}
+
+.tag-search input:focus {
+	border-color: rgba(102, 204, 255, 0.75);
+	background: rgba(102, 204, 255, 0.08);
+}
+
+.tag-cloud {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.tag-cloud .tag-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	margin: 0;
+}
+
+.tag-chip-count {
+	min-width: 18px;
+	padding: 0 5px;
+	border-radius: 9px;
+	text-align: center;
+	font-size: 0.78em;
+	line-height: 18px;
+	background: rgba(255, 255, 255, 0.14);
+	color: inherit;
+}
+
+.tag-chip:hover .tag-chip-count {
+	background: rgba(11, 13, 18, 0.22);
+}
+
+/* --------------------------------------------------------------------------
+   10. 响应式
+   -------------------------------------------------------------------------- */
+
+@media only screen and (max-width: 600px) {
+	.article-title {
+		font-size: 1.35em;
+	}
+
+	.article-content {
+		font-size: 15px;
+	}
+
+	.post-item {
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	.post-item-info {
+		font-size: 0.75em;
+	}
+
+	.article-content table {
+		font-size: 0.85em;
+	}
+
+	.post-nav-item {
+		flex: 1 1 100%;
+	}
+}
