@@ -2,13 +2,13 @@
 <html lang="zh-CN">
  <head> 
   <meta charset="utf-8" /> 
-  <title>VINCENT的博客</title> 
+  <title>Latex测试：相似三角形题目 | VINCENT的博客</title> 
   <link rel="icon" href="/images/fav.png" /> 
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
   <meta name="keywords" content="" />
   <meta name="description" content="" /> 
-  <link rel="canonical" href="http://example.com/archives/2026/index.html" /> 
+  <link rel="canonical" href="http://example.com/2026/09/19/Latex%E6%B5%8B%E8%AF%95%EF%BC%9A%E7%9B%B8%E4%BC%BC%E4%B8%89%E8%A7%92%E5%BD%A2%20%E9%A2%98%E7%9B%AE/" /> 
   <link rel="stylesheet" href="/css/style.css" /> 
   <link rel="stylesheet" href="/css/mdui.css" importance="high"/> 
   <link rel="stylesheet" href="/css/article.css" /> 
@@ -18,7 +18,7 @@
    @import url("/css/iconfont.css");
   </style>
  <meta name="generator" content="Hexo 8.1.2"></head> 
- <body class="page-archive"> 
+ <body class="page-post"> 
    <script>
     let images = "https://api.ee123.net/img/bingimg/dayimg.jpg"
     images = images.split(',')
@@ -56,7 +56,7 @@
        
       <a href="/" class="top-nav-link">首页</a> 
        
-      <a href="/archives" class="top-nav-link active">归档</a> 
+      <a href="/archives" class="top-nav-link">归档</a> 
        
       <a href="/tags" class="top-nav-link">标签</a> 
        
@@ -143,42 +143,73 @@
    <!-- page content -->
    <main class="main-wrap"> 
     
-<div class="card list-card"> 
+<article class="card article"> 
  <div class="card-content"> 
-  <h2 class="section-title">2026 年<small class="section-count">共 3 篇</small></h2> 
+  <header class="article-header"> 
+    
+   <h1 class="article-title">Latex测试：相似三角形题目</h1> 
+    
+   <div class="article-meta"> 
+     
+    <span class="meta-item"><i class="mdui-icon material-icons">schedule</i><time datetime="2026-09-19T05:22:35.000Z">2026-09-19 13:22</time></span> 
+     
+     
+     
+    <span class="meta-item"><i class="mdui-icon material-icons">local_offer</i><a href="/tags/test/">test</a></span> 
+     
+   </div> 
+  </header> 
+
    
-  <div class="post-list"> 
-    
-   <a class="post-item" href="/2026/09/19/Latex%E6%B5%8B%E8%AF%95%EF%BC%9A%E7%9B%B8%E4%BC%BC%E4%B8%89%E8%A7%92%E5%BD%A2%20%E9%A2%98%E7%9B%AE/"> 
-    <span class="post-item-title">Latex测试：相似三角形题目</span> 
-    <span class="post-item-info"> 
-     <span class="post-item-date">2026-09-19</span> 
-      
-    </span> 
-   </a> 
-    
-   <a class="post-item" href="/2026/09/12/%E5%90%83%E4%B8%AA%E6%A1%83%E6%A1%83%E5%A5%BD%E5%87%89%E5%87%89%E5%95%8A/"> 
-    <span class="post-item-title">吃个桃桃</span> 
-    <span class="post-item-info"> 
-     <span class="post-item-date">2026-09-12</span> 
-      
-    </span> 
-   </a> 
-    
-   <a class="post-item" href="/2026/09/12/hello-world/"> 
-    <span class="post-item-title">Hello World</span> 
-    <span class="post-item-info"> 
-     <span class="post-item-date">2026-09-12</span> 
-      
-    </span> 
-   </a> 
-    
+  <details class="toc-details" open> 
+   <summary class="toc-summary">目录</summary> 
+   <div class="toc-wrap"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%83%85%E5%86%B51%EF%BC%9A-triangle-CDP-sim-triangle-ABC"><span class="toc-text">情况1：$\triangle CDP \sim \triangle ABC$</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%83%85%E5%86%B52%EF%BC%9A-triangle-CPD-sim-triangle-ABC"><span class="toc-text">情况2：$\triangle CPD \sim \triangle ABC$</span></a></li></ol></div> 
+  </details> 
+   
+
+  <div class="article-content"><p><img src="/images/posts/2691901.jpg" alt="相似三角形题目"></p>
+<hr>
+<p>答案为:  $P(0,-\frac 73)  或 P(0,3)$</p>
+<hr>
+<h2 id="情况1：-triangle-CDP-sim-triangle-ABC"><a href="#情况1：-triangle-CDP-sim-triangle-ABC" class="headerlink" title="情况1：$\triangle CDP \sim \triangle ABC$"></a>情况1：$\triangle CDP \sim \triangle ABC$</h2><p>$$<br>\begin{align}</p>
+<p>\therefore \angle CDP &#x3D; 90\degree \<br>\because 四边形ABCO属于矩形\<br>\therefore AB &#x3D; CO \ \angle COA &#x3D; 90 \degree \<br>\therefore 在Rt\triangle AOC中:\<br>AC &#x3D; \sqrt{AO^2 + CO^2} &#x3D; 10 \<br>\because 点D平分AC\<br>\therefore CD &#x3D; \frac{1}{2}AC &#x3D; 5\<br>\because \triangle CDP \sim \triangle ABC \<br>\therefore \frac{CD}{AB} &#x3D; \frac{CP}{AC} &#x3D; \frac{5}{6}\<br>\therefore CP &#x3D; \frac5 6 \cdot AC &#x3D; \frac{25} 3\<br>\therefore P(0,\frac{25} 3 - 6) \<br>\therefore P(0,-\frac73)<br>\end{align}<br>$$</p>
+<h2 id="情况2：-triangle-CPD-sim-triangle-ABC"><a href="#情况2：-triangle-CPD-sim-triangle-ABC" class="headerlink" title="情况2：$\triangle CPD \sim \triangle ABC$"></a>情况2：$\triangle CPD \sim \triangle ABC$</h2><p>$$<br>\begin{align}<br>由题可知\angle CPD &#x3D; 90 \degree \<br>\therefore \frac{CP}{AB} &#x3D; \frac{CD}{AC} &#x3D; \frac12\<br>\therefore CP &#x3D; \frac12 \cdot AB &#x3D; \frac12 \times 6 &#x3D; 3\<br>\therefore OP &#x3D; 6 - 3 &#x3D; 3\<br>\therefore P(0,3)<br><br>\end{align}<br>$$</p>
+</div> 
+
+   
+  <div class="tag-list"> 
+   <a class="tag-chip" href="/tags/test/"># test</a> 
   </div> 
    
-   
- 
  </div> 
-</div> 
+</article> 
+ 
+
+<nav class="post-nav"> 
+  
+  
+ <a class="post-nav-item next" href="/2026/09/12/%E5%90%83%E4%B8%AA%E6%A1%83%E6%A1%83%E5%A5%BD%E5%87%89%E5%87%89%E5%95%8A/"> 
+  <span class="post-nav-label">下一篇<i class="mdui-icon material-icons">navigate_next</i></span> 
+  <span class="post-nav-title">吃个桃桃</span> 
+ </a> 
+  
+</nav> 
+
+ 
+<script> 
+window.MathJax = { 
+  tex: { 
+    inlineMath: [['$', '$'], ['\\(', '\\)']], 
+    displayMath: [['$$', '$$'], ['\\[', '\\]']], 
+    processEscapes: true 
+  }, 
+  options: { 
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] 
+  } 
+}; 
+</script> 
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> 
+ 
  
    </main> 
 
